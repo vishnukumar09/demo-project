@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    environment {
+        BUILD_ENV = "dev"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vishnukumar09/demo-project.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'echo "Building application..."'
+                // sh 'mvn clean install'  ← if using Java/Maven
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'echo "Running unit tests..."'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'echo "Deploying to $BUILD_ENV environment..."'
+            }
+        }
+    }
+}
